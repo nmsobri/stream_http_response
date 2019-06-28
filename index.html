@@ -1,0 +1,38 @@
+<html>
+<head>
+    <title>Ajax Streaming Test</title>
+</head>
+<body>
+
+<a href="#" id="test">Test Ajax Streaming</a>
+
+<div id="result">
+
+</div>
+
+<script type="text/javascript">
+
+    document.getElementById('test').onclick = function () {
+        let xhr = new XMLHttpRequest();
+        xhr.open("GET", "output.php", true);
+
+        xhr.onprogress = function (e) {
+            let target = document.getElementById('result');
+
+            let child = document.createElement('p');
+            child.innerHTML = e.currentTarget.responseText;
+
+            target.appendChild(child);
+        };
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                console.log("Complete = " + xhr.responseText);
+            }
+        };
+        xhr.send();
+    };
+</script>
+
+</body>
+</html>
